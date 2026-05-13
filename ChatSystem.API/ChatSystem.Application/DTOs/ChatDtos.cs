@@ -3,7 +3,7 @@
 namespace ChatSystem.Application.DTOs;
 
 
-public sealed class SendMessageDto
+public sealed record SendMessageDto
 {
     public Guid ConversationId { get; init; }
     public Guid SenderId { get; init; }
@@ -11,7 +11,7 @@ public sealed class SendMessageDto
 }
 
 
-public sealed class CreateGroupConversationDto
+public sealed record CreateGroupConversationDto
 {
     public Guid CreatedByUserId { get; init; }
     public string Title { get; init; } = string.Empty;
@@ -20,14 +20,14 @@ public sealed class CreateGroupConversationDto
 }
 
 
-public sealed class CreateDirectConversationDto
+public sealed record CreateDirectConversationDto
 {
     public Guid InitiatorUserId { get; init; }
     public Guid RecipientUserId { get; init; }
 }
 
 // Carries the data needed to add a participant to an existing group.
-public sealed class AddParticipantDto
+public sealed record AddParticipantDto
 {
     public Guid ConversationId { get; init; }
 
@@ -46,7 +46,7 @@ public sealed class AddParticipantDto
 /// Domain entities are never returned directly — DTOs decouple the API
 /// contract from internal domain structure and prevent over-posting.
 /// </summary>
-public sealed class MessageResponseDto
+public sealed record MessageResponseDto
 {
     public Guid Id { get; init; }
     public Guid ConversationId { get; init; }
@@ -60,7 +60,7 @@ public sealed class MessageResponseDto
     public bool IsDeleted { get; init; }
 }
 
-public sealed class ConversationDto
+public sealed record ConversationDto
 {
     public Guid Id { get; init; }
 
@@ -82,7 +82,7 @@ public sealed class ConversationDto
 }
 
 // Lightweight participant shape used inside ConversationDetailDto.
-public sealed class ParticipantDto
+public sealed record ParticipantDto
 {
     public Guid UserId { get; init; }
     public string DisplayName { get; init; } = string.Empty;
@@ -93,7 +93,7 @@ public sealed class ParticipantDto
 
 // Full conversation detail including participants.
 // Returned when a user opens a specific conversation.
-public sealed class ConversationDetailDto
+public sealed record ConversationDetailDto
 {
     public Guid Id { get; init; }
     public string? Title { get; init; }
