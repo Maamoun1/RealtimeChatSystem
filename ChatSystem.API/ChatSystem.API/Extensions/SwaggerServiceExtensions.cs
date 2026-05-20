@@ -69,7 +69,7 @@ public static class SwaggerServiceExtensions
             app.UseSwaggerUI(options =>
             {
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "RealtimeChatSystem v1");
-                options.RoutePrefix = string.Empty; // Serve at root: https://localhost:PORT/
+                options.RoutePrefix = "swagger"; // Serve at root: https://localhost:PORT/
             });
         }
 
