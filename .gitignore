@@ -444,3 +444,4 @@ FodyWeavers.xsd
 # Ignore OS files
 Thumbs.db
 .DS_Store
+.env
