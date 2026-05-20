@@ -1,4 +1,5 @@
 ﻿using ChatSystem.Application.Services;
+using ChatSystem.Application.Validators;
 
 namespace ChatSystem.API.Extensions;
 
@@ -15,6 +16,9 @@ public static class ApplicationServiceExtensions
         services.AddScoped<ChatService>();
         services.AddScoped<GroupService>();
         services.AddScoped<PresenceService>();
+
+        services.AddScoped<SendMessageValidator>();
+        services.AddScoped<CreateGroupConversationValidator>();
 
         return services;
     }
