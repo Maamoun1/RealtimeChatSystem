@@ -240,6 +240,6 @@ src/
 
 ---
 
-## License
-
-MIT — see [LICENSE](LICENSE).
+## 👤 Author
+**Maamoun Ibrahim** Backend Developer | .NET  
+[https://github.com/Maamoun1]
