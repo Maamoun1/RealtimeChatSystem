@@ -31,7 +31,7 @@ builder.Services.AddApiVersioning(options =>
     options.ReportApiVersions = true; // Adds api-supported-versions header
 });
 
-// ── 3. Swagger (OpenAPI) ───────────────────────────────────────────────────────
+// ── 3. Swagger (OpenAPI) ──────────────────────────────────────ش─────────────────
 builder.Services.AddSwaggerDocumentation();
 
 // ── 4. JWT Authentication ─────────────────────────────────────────────────────
@@ -92,21 +92,23 @@ builder.Services
         options.PayloadSerializerOptions.PropertyNamingPolicy =
             System.Text.Json.JsonNamingPolicy.CamelCase;
     })
-    // WHY AddStackExchangeRedis (SignalR backplane)?
-    // When this API runs on multiple server instances behind a load balancer,
-    // a message sent to Hub instance A must reach clients connected to Hub instance B.
-    // The Redis backplane uses pub/sub to broadcast across all instances.
-    // Without this, users on different server instances cannot see each other's messages.
-    .AddStackExchangeRedis(
-        builder.Configuration.GetConnectionString("Redis")
-            ?? throw new InvalidOperationException("Redis connection string is missing."),
-        options =>
-        {
-            options.Configuration.ChannelPrefix =
-                new StackExchange.Redis.RedisChannel(
-                    "ChatSystem",
-                    StackExchange.Redis.RedisChannel.PatternMode.Literal);
-        });
+// WHY AddStackExchangeRedis (SignalR backplane)?
+// When this API runs on multiple server instances behind a load balancer,
+// a message sent to Hub instance A must reach clients connected to Hub instance B.
+// The Redis backplane uses pub/sub to broadcast across all instances.
+// Without this, users on different server instances cannot see each other's messages.
+.AddStackExchangeRedis(
+    builder.Configuration.GetConnectionString("Redis")
+        ?? throw new InvalidOperationException("Redis connection string is missing."),
+    options =>
+    {
+        options.Configuration.AbortOnConnectFail = false;
+
+        options.Configuration.ChannelPrefix =
+            new StackExchange.Redis.RedisChannel(
+                "ChatSystem",
+                StackExchange.Redis.RedisChannel.PatternMode.Literal);
+    });
 
 // ── 7. Application services ───────────────────────────────────────────────────
 // Registers ChatService, GroupService, PresenceService.
